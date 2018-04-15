@@ -14,7 +14,6 @@ import java.util.List;
 public class DBProductsManager {
 
     private DBProductsHelper dbProductsHelper;
-    private SQLiteDatabase database;
     Context context;
 
     public DBProductsManager(Context context) {
@@ -61,12 +60,7 @@ public class DBProductsManager {
         dbProductsHelper = new DBProductsHelper(context);
         SQLiteDatabase database = dbProductsHelper.getReadableDatabase();
 
-        String sqlQuery = "select * "
-                + "from " + DBProductsHelper.TABLE_PRODUCTS + " as P "
-                + "inner join " + DBProductsHelper.TABLE_LABELS + " as L "
-                + "on P." + DBProductsHelper.KEY_TYPE + " = L." + DBProductsHelper.KEY_TYPE;
-
-        sqlQuery = "SELECT * FROM " + DBProductsHelper.TABLE_PRODUCTS;
+        String sqlQuery = "SELECT * FROM " + DBProductsHelper.TABLE_PRODUCTS;
         //TODO переделать запрос на тот, что стоит выше, когда появятся типы продуктов
         Cursor cursor = database.rawQuery(sqlQuery, null);
 
@@ -93,7 +87,7 @@ public class DBProductsManager {
             Log.e("READ", model.getProdName());
         }
 
-        cursor.close(); //IF DOES NOT WORK THEN DELETE
+        cursor.close();
         database.close();
         return result;
     }
@@ -122,9 +116,7 @@ public class DBProductsManager {
         if (String.valueOf(model.getDrawable()).equals("null")) {
             contentValues.put(DBProductsHelper.KEY_IMAGE, model.getDrawable());
         }
-        if (String.valueOf(model.getMass()).equals("null")) {
-            contentValues.put(DBProductsHelper.KEY_MASS, model.getMass());
-        }
+
         if (model.getType() != null) {
             contentValues.put(DBProductsHelper.KEY_TYPE, model.getType());
         }

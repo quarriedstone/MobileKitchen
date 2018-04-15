@@ -26,7 +26,7 @@ public class ProductFragment extends Fragment {
     }
 
     /**
-     * This starts when all view elemnts are loaded
+     * This starts when all view elements are loaded
      *
      * @param view
      * @param savedInstanceState

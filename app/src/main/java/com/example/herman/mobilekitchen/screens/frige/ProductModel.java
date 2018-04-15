@@ -4,9 +4,8 @@ public class ProductModel {
     private int id;
     private int drawable;
     private String prodName;
-    private float mass;
+    private long amount;
     private long expireDate;
-    private int amount;
     private String measure;
     private String type;
 
@@ -17,20 +16,18 @@ public class ProductModel {
         this.id = id;
     }
 
-    public ProductModel(int drawable, String prodName, float mass, long expireDate, int amount, String measure, String type) {
+    public ProductModel(int drawable, String prodName, long expireDate, long amount, String measure, String type) {
         this.drawable = drawable;
         this.prodName = prodName;
-        this.mass = mass;
         this.expireDate = expireDate;
         this.amount = amount;
         this.measure = measure;
         this.type = type;
     }
 
-    public ProductModel(int drawable, String prodName, float mass, long expireDate, int amount, String measure, String type, int id) {
+    public ProductModel(int drawable, String prodName, long expireDate, long amount, String measure, String type, int id) {
         this.drawable = drawable;
         this.prodName = prodName;
-        this.mass = mass;
         this.expireDate = expireDate;
         this.amount = amount;
         this.measure = measure;
@@ -70,14 +67,6 @@ public class ProductModel {
         this.prodName = prodName;
     }
 
-    public float getMass() {
-        return mass;
-    }
-
-    public void setMass(float mass) {
-        this.mass = mass;
-    }
-
     public long getExpireDate() {
         return expireDate;
     }
@@ -85,7 +74,6 @@ public class ProductModel {
     public void setExpireDate(long expireDate) {
         this.expireDate = expireDate;
     }
-
 
     public void setType(String type) {
         this.measure = type;
@@ -95,12 +83,11 @@ public class ProductModel {
         return type;
     }
 
-
-    public int getAmount() {
+    public long getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(long amount) {
         this.amount = amount;
     }
 }

@@ -47,18 +47,13 @@ public class FrigeFragment extends Fragment implements IUpdateData {
     }
 
     private void mockFillDB() {
-        ProductModel productModel = new ProductModel(R.drawable.ic_launcher_background, "Apple", 100, System.currentTimeMillis(), 2, "kilos", "somethis");
-        ProductModel productModel2 = new ProductModel(R.drawable.ic_launcher_background, "Dick", 100, System.currentTimeMillis(), 2, "kilos", "somethis");
-        ProductModel productModel3 = new ProductModel(R.drawable.ic_launcher_background, "Cock", 100, System.currentTimeMillis(), 2, "kilos", "somethis");
-        ProductModel productModel4 = new ProductModel(R.drawable.ic_launcher_background, "Shick", 100, System.currentTimeMillis(), 2, "kilos", "somethis");
+        ProductModel productModel = new ProductModel(R.drawable.apple, "Apple",  System.currentTimeMillis(), 2, "kilos", "somethis");
+        ProductModel productModel2 = new ProductModel(R.drawable.salami, "Meat",  System.currentTimeMillis(), 2, "kilos", "somethis");
+        ProductModel productModel3 = new ProductModel(R.drawable.eggs, "Eggs",  System.currentTimeMillis(), 2, "kilos", "somethis");
         presenter.addProduct(productModel);
         presenter.addProduct(productModel2);
         presenter.addProduct(productModel3);
-        presenter.addProduct(productModel4);
 
-        for (int i = 0; i < 2; i++) {
-            remove();
-        }
     }
 
     @Override
