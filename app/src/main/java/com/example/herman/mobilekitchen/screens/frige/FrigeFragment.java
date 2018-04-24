@@ -37,7 +37,7 @@ public class FrigeFragment extends Fragment implements IUpdateData {
 
         List<ProductModel> result = presenter.getProducts();
 
-        rv = view.findViewById(R.id.rv);
+        rv = (RecyclerView) view.findViewById(R.id.rv);
         layoutManager = new GridLayoutManager(getContext(), 3);
         rv.setLayoutManager(layoutManager);
         adapter = new FrigeAdapter(result);
