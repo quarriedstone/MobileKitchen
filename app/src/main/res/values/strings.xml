@@ -8,4 +8,11 @@
     <string name="action_settings">Settings</string>
     <string name="text">Text</string>
     <string name="salami">Salami</string>
+    <string-array name="measure">
+        <item>grams</item>
+        <item>kilos</item>
+        <item>litres</item>
+        <item>gallons</item>
+    </string-array>
 </resources>
+

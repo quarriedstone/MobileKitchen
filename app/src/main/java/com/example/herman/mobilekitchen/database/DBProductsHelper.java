@@ -15,10 +15,10 @@ public class DBProductsHelper extends SQLiteOpenHelper {
     public static final String KEY_ID = "_id";
     public static final String KEY_NAME = "name";
     public static final String KEY_AMOUNT = "amount";
-    public static final String KEY_MEASURE = "measure";
+    public static final String KEY_THINGS = "things";
     public static final String KEY_EXP_DATE = "exp_date";
     public static final String KEY_IMAGE = "picture";
-    public static final String KEY_TYPE = "type";
+//    public static final String KEY_TYPE = "prod_type";
 
     //public static final String TABLE_LABELS = "labels";
 
@@ -32,10 +32,10 @@ public class DBProductsHelper extends SQLiteOpenHelper {
                 + KEY_ID + " integer primary key autoincrement,"
                 + KEY_NAME + " text,"
                 + KEY_AMOUNT + " float,"
-                + KEY_MEASURE + " text,"
-                + KEY_EXP_DATE + " bigint,"
-                + KEY_IMAGE + " bigint,"
-                + KEY_TYPE + " integer"
+                + KEY_THINGS + " text,"
+                + KEY_EXP_DATE + " text,"
+                + KEY_IMAGE + " bigint"
+//                + KEY_TYPE + " integer"
                 + ")");
 
 //          + "foreign key (" + KEY_TYPE + ") references " + TABLE_LABELS + "(" + KEY_TYPE + ")"

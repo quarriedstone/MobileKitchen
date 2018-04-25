@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.example.herman.mobilekitchen.screens.frige.ProductModel;
 
@@ -40,14 +39,14 @@ public class DBProductsManager {
         dbProductsHelper = new DBProductsHelper(context);
         SQLiteDatabase database = dbProductsHelper.getWritableDatabase();
         database.beginTransaction();
-        ContentValues contentValues = new ContentValues();
 
+        ContentValues contentValues = new ContentValues();
         contentValues.put(DBProductsHelper.KEY_NAME, model.getProdName());
         contentValues.put(DBProductsHelper.KEY_AMOUNT, model.getAmount());
         contentValues.put(DBProductsHelper.KEY_EXP_DATE, model.getExpireDate());
-        contentValues.put(DBProductsHelper.KEY_MEASURE, model.getMeasure());
+        contentValues.put(DBProductsHelper.KEY_THINGS, model.getMeasure());
         contentValues.put(DBProductsHelper.KEY_IMAGE, model.getDrawable());
-        contentValues.put(DBProductsHelper.KEY_TYPE, model.getType());
+//        contentValues.put(DBProductsHelper.KEY_TYPE, model.getType());
 
         database.insert(DBProductsHelper.TABLE_PRODUCTS, null, contentValues);
         database.setTransactionSuccessful();
@@ -72,24 +71,53 @@ public class DBProductsManager {
             int indexProdName = cursor.getColumnIndex(DBProductsHelper.KEY_NAME);
             int indexAmount = cursor.getColumnIndex(DBProductsHelper.KEY_AMOUNT);
             int indexExpireDate = cursor.getColumnIndex(DBProductsHelper.KEY_EXP_DATE);
-            int indexMeasure = cursor.getColumnIndex(DBProductsHelper.KEY_MEASURE);
+            int indexMeasure = cursor.getColumnIndex(DBProductsHelper.KEY_THINGS);
             int indexDrawable = cursor.getColumnIndex(DBProductsHelper.KEY_IMAGE);
-            int indexType = cursor.getColumnIndex(DBProductsHelper.KEY_TYPE);
+//            int indexType = cursor.getColumnIndex(DBProductsHelper.KEY_TYPE);
 
             model.setId(cursor.getInt(indexId));
             model.setAmount(cursor.getInt(indexAmount));
             model.setDrawable(cursor.getInt(indexDrawable));
-            model.setExpireDate(cursor.getLong(indexExpireDate));
+            model.setExpireDate(cursor.getString(indexExpireDate));
             model.setMeasure(cursor.getString(indexMeasure));
             model.setProdName(cursor.getString(indexProdName));
-            model.setType(cursor.getString(indexType));
+//            model.setType(cursor.getString(indexType));
             result.add(model);
-            Log.e("READ", model.getProdName());
         }
 
         cursor.close();
         database.close();
         return result;
+    }
+
+    public ProductModel getOneProduct(int prodId) {
+        dbProductsHelper = new DBProductsHelper(context);
+        SQLiteDatabase database = dbProductsHelper.getReadableDatabase();
+
+        String sqlQuery = "SELECT * FROM " + DBProductsHelper.TABLE_PRODUCTS + " WHERE " + DBProductsHelper.KEY_ID + " = " + prodId;
+        //TODO переделать запрос на тот, что стоит выше, когда появятся типы продуктов
+        Cursor cursor = database.rawQuery(sqlQuery, null);
+
+        ProductModel model = new ProductModel();
+        cursor.moveToNext();
+        int indexId = cursor.getColumnIndex(DBProductsHelper.KEY_ID);
+        int indexProdName = cursor.getColumnIndex(DBProductsHelper.KEY_NAME);
+        int indexAmount = cursor.getColumnIndex(DBProductsHelper.KEY_AMOUNT);
+        int indexMeasure = cursor.getColumnIndex(DBProductsHelper.KEY_THINGS);
+        int indexExpireDate = cursor.getColumnIndex(DBProductsHelper.KEY_EXP_DATE);
+        int indexDrawable = cursor.getColumnIndex(DBProductsHelper.KEY_IMAGE);
+//        int indexType = cursor.getColumnIndex(DBProductsHelper.KEY_TYPE);
+
+        model.setId(cursor.getInt(indexId));
+        model.setAmount(cursor.getInt(indexAmount));
+        model.setDrawable(cursor.getInt(indexDrawable));
+        model.setExpireDate(cursor.getString(indexExpireDate));
+        model.setMeasure(cursor.getString(indexMeasure));
+        model.setProdName(cursor.getString(indexProdName));
+//        model.setType(cursor.getString(indexType));
+        cursor.close();
+        database.close();
+        return model;
     }
 
     public int updateProduct(ProductModel model) {
@@ -101,27 +129,27 @@ public class DBProductsManager {
             contentValues.put(DBProductsHelper.KEY_NAME, model.getProdName());
         }
 
-        if (String.valueOf(model.getAmount()).equals("null")) {
+        if (!String.valueOf(model.getAmount()).equals("null")) {
             contentValues.put(DBProductsHelper.KEY_AMOUNT, model.getAmount());
         }
 
         if (model.getMeasure() != null) {
-            contentValues.put(DBProductsHelper.KEY_MEASURE, model.getMeasure());
+            contentValues.put(DBProductsHelper.KEY_THINGS, model.getMeasure());
         }
 
-        if (String.valueOf(model.getExpireDate()).equals("null")) {
+        if (!String.valueOf(model.getExpireDate()).equals("null")) {
             contentValues.put(DBProductsHelper.KEY_EXP_DATE, model.getExpireDate());
         }
 
-        if (String.valueOf(model.getDrawable()).equals("null")) {
+        if (!String.valueOf(model.getDrawable()).equals("null")) {
             contentValues.put(DBProductsHelper.KEY_IMAGE, model.getDrawable());
         }
 
-        if (model.getType() != null) {
-            contentValues.put(DBProductsHelper.KEY_TYPE, model.getType());
-        }
+//        if (model.getType() != null) {
+//            contentValues.put(DBProductsHelper.KEY_TYPE, model.getType());
+//        }
         int count = database.update(DBProductsHelper.TABLE_PRODUCTS, contentValues,
-                "id = ?", new String[]{String.valueOf(model.getId())});
+                "_id = ?", new String[]{String.valueOf(model.getId())});
         database.setTransactionSuccessful();
         database.endTransaction();
         database.close();

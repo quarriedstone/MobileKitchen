@@ -24,15 +24,6 @@
     <include layout="@layout/content_main"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/deleteProductButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|start"
-        android:layout_margin="16dp"
-        android:clickable="true"
-        app:srcCompat="@drawable/ic_delete_black_24dp" />
-
-    <android.support.design.widget.FloatingActionButton
         android:id="@+id/addProductButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.herman.mobilekitchen.R;
+import com.example.herman.mobilekitchen.screens.frige.FrigePresenter;
 import com.example.herman.mobilekitchen.screens.frige.ProductModel;
 
 import java.util.List;
@@ -17,9 +18,11 @@ public class FrigeAdapter extends RecyclerView.Adapter<FrigeAdapter.ViewHolder> 
 
     private List<ProductModel> list;
     private Context context;
+    private FrigePresenter presenter;
 
-    public FrigeAdapter(List<ProductModel> list) {
+    public FrigeAdapter(List<ProductModel> list, FrigePresenter presenter) {
         this.list = list;
+        this.presenter = presenter;
     }
 
     @Override
@@ -32,6 +35,18 @@ public class FrigeAdapter extends RecyclerView.Adapter<FrigeAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.prodName.setText(list.get(position).getProdName());
+        holder.prodPicture.setImageResource(list.get(position).getDrawable());
+        holder.prodPicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (presenter.isNextFoodMustBeDeleted()) {
+                    presenter.deleteProduct(list.get(position));
+                    presenter.setNextFoodMustBeDeleted(false);
+                } else
+                    presenter.getProduct(list.get(position).getId());
+            }
+        });
+
 //        Picasso.with(context).load(list.get(position).getDrawable()).into(holder.prodPicture);
 //        Log.e("DRAWABLE", String.valueOf(list.get(position).getDrawable()));
     }
@@ -49,7 +64,6 @@ public class FrigeAdapter extends RecyclerView.Adapter<FrigeAdapter.ViewHolder> 
             super(view);
             prodPicture = view.findViewById(R.id.prodPicture);
             prodName = view.findViewById(R.id.prodName);
-
         }
     }
 

@@ -5,7 +5,7 @@ public class ProductModel {
     private int drawable;
     private String prodName;
     private long amount;
-    private long expireDate;
+    private String expireDate;
     private String measure;
     private String type;
 
@@ -16,7 +16,7 @@ public class ProductModel {
         this.id = id;
     }
 
-    public ProductModel(int drawable, String prodName, long expireDate, long amount, String measure, String type) {
+    public ProductModel(int drawable, String prodName, String expireDate, long amount, String measure, String type) {
         this.drawable = drawable;
         this.prodName = prodName;
         this.expireDate = expireDate;
@@ -25,7 +25,7 @@ public class ProductModel {
         this.type = type;
     }
 
-    public ProductModel(int drawable, String prodName, long expireDate, long amount, String measure, String type, int id) {
+    public ProductModel(int drawable, String prodName, String expireDate, long amount, String measure, String type, int id) {
         this.drawable = drawable;
         this.prodName = prodName;
         this.expireDate = expireDate;
@@ -67,11 +67,11 @@ public class ProductModel {
         this.prodName = prodName;
     }
 
-    public long getExpireDate() {
+    public String getExpireDate() {
         return expireDate;
     }
 
-    public void setExpireDate(long expireDate) {
+    public void setExpireDate(String expireDate) {
         this.expireDate = expireDate;
     }
 
@@ -89,5 +89,15 @@ public class ProductModel {
 
     public void setAmount(long amount) {
         this.amount = amount;
+    }
+
+    @Override
+    public String toString() {
+        return "drawable = " + drawable +
+                "prodName = " + prodName +
+                "expireDate = " + expireDate +
+                "amount = " + amount +
+                "measure = " + measure +
+                "type = " + type;
     }
 }
